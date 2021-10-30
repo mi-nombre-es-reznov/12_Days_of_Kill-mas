@@ -1,7 +1,8 @@
-# Title: 13 Days of Kill-mas
+# Title: 12 Days of Kill-mas
 # Author: Nicholas Perez-Aguilar
 # File: Globals.py
 
+# 13 days of Christmas
 ONE = "A victory in Call of Duty"
 TWO = "Gun Game"
 THREE = "Gunfight"
