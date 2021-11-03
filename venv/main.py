@@ -15,18 +15,23 @@ if __name__ == "__main__":
     valid = ""
     filename = ""
     again = "Yes"
+    map_data = []
 
     while(again == "Yes"):
-        Aux.clear()
-        filename = inp.set_path()
-        valid = FM.test_file(filename)
+        # Get & Test user-input location
+        Aux.clear()                     # Clear the screen from the start/loop at beginning of program
+        filename = inp.set_path()       # Get path from user
+        valid = FM.test_file(filename)  # Test user-entered path for validity
 
+        # Program mapping based on given location
+        Aux.clear()
         if(valid == "Yes"):
-            pass
+            map_data = FM.get_data(filename)
+            print("Map Data:\n" + str(map_data))
         elif(valid == "No"):
-            pass
+            print("Location provided does not exist!")
+            time.sleep(3)
         else:
-            Aux.clear()
             print("Something went wrong. Check the code.")
             time.sleep(3)
 
