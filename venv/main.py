@@ -27,7 +27,7 @@ if __name__ == "__main__":
         Aux.clear()
         if(valid == "Yes"):
             map_data = FM.get_data(filename)
-            print("Map Data:\n" + str(map_data))
+            Aux.map_status(map_data)
         elif(valid == "No"):
             print("Location provided does not exist!")
             time.sleep(3)

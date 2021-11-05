@@ -15,3 +15,8 @@ NINE = "Champion Hill"
 TEN = "Kill Confirmed"
 ELEVEN = "Patrol"
 TWELVE = "Bots"
+
+# File Globals
+GAMES = ["Call of Duty: Mobile", "Call of Duty: Modern Warfare", "Call of Duty: Cold War", "Call of Duty: Vanguard", "Call of Duty: Warzone"]
+GAME_MODE = []
+GAME_MAP = []
