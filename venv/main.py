@@ -3,12 +3,14 @@
 # File: Main.py
 
 # Imports
+import sys
 import time
 
 import Inputs as inp
 import Globals as G
 import File_Manipulation as FM
 import Auxillary_Funcs as Aux
+import Data_Template as DT
 
 # Code Path
 if __name__ == "__main__":
@@ -16,6 +18,7 @@ if __name__ == "__main__":
     filename = ""
     again = "Yes"
     map_data = []
+    killmas_data = []
 
     while(again == "Yes"):
         # Get & Test user-input location
@@ -26,8 +29,67 @@ if __name__ == "__main__":
         # Program mapping based on given location
         Aux.clear()
         if(valid == "Yes"):
-            map_data = FM.get_data(filename)
-            Aux.map_status(map_data)
+            choice = Aux.menu_display("Main Menu", G.MAIN_MENU) # Display Main Menu
+
+            # Gather Data
+            map_data = FM.get_data(filename)  # Getting data from mapping file
+            vfn, vfl = Aux.map_status(map_data)  # Getting valid file names and links
+
+            # Get data for every Day in Killmas files
+            for i in range(len(vfl)):
+                data = FM.get_data(vfl[i])
+                killmas_data.append(data)
+
+            # Run Selected Choice
+            if(choice == 0):
+                # Seperate killmas data and display
+                for i in range(len(killmas_data)):
+                    temp_data = killmas_data.pop(0)
+                    header = temp_data.pop(0)
+
+                    # Set up and overwrite class object
+                    dd = DT.DATA_DISPLAY((i + 1), vfn[i], header, temp_data)
+                    dd.print_day()
+                    dd.print_headers()
+                    dd.print_data()
+
+                input("\n\nPress any key to continue.")
+            elif(choice == 1):
+                update = -1
+                incomplete = vfn
+                day_update = []
+
+                while(update < 0 or update > len(incomplete)):
+                    # Seperate killmas data and display
+                    for i in range(len(killmas_data)):
+                        temp_data = killmas_data.pop(0)
+                        header = temp_data.pop(0)
+
+                        # Set up and overwrite class object - ITERATES by Day
+                        ud = DT.DATA_DISPLAY((i + 1), vfn[i], header, temp_data)
+                        ud.print_day()
+                        ud.print_headers()
+                        incomplete, vid_choices = ud.get_incomplete_data_info()
+                        day_update.append(vid_choices)
+                        ud.print_incomplete_data(incomplete)
+
+                    # Get video number
+                    day, vid = inp.get_update(day_update)    # Get update parameter (video number) - Location
+                    print("Update \n")
+                    print("Day {0} - video: {1}".format(day, vid))
+
+                input("\n\nPress any key to continue.")
+            elif(choice == 2):
+                Aux.clear()
+                print("Thank you for using NCompEng Technologies!")
+                time.sleep(3)
+                sys.exit()
+            else:
+                Aux.clear()
+                print("Something went wrong! Check the code!\n")
+                time.sleep(5)
+
+
         elif(valid == "No"):
             print("Location provided does not exist!")
             time.sleep(3)
