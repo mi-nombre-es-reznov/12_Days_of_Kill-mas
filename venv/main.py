@@ -55,28 +55,34 @@ if __name__ == "__main__":
 
                 input("\n\nPress any key to continue.")
             elif(choice == 1):
-                update = -1
                 incomplete = vfn
                 day_update = []
+                game = ""
+                game_type = ""
+                game_map = ""
 
-                while(update < 0 or update > len(incomplete)):
-                    # Seperate killmas data and display
-                    for i in range(len(killmas_data)):
-                        temp_data = killmas_data.pop(0)
-                        header = temp_data.pop(0)
+                # Seperate killmas data and display
+                for i in range(len(killmas_data)):
+                    temp_data = killmas_data.pop(0)                             # Break each video from day up into list
+                    header = temp_data.pop(0)                                   # Pop headers from day files
 
-                        # Set up and overwrite class object - ITERATES by Day
-                        ud = DT.DATA_DISPLAY((i + 1), vfn[i], header, temp_data)
-                        ud.print_day()
-                        ud.print_headers()
-                        incomplete, vid_choices = ud.get_incomplete_data_info()
-                        day_update.append(vid_choices)
-                        ud.print_incomplete_data(incomplete)
+                    # Set up and overwrite class object - ITERATES by Day
+                    ud = DT.DATA_DISPLAY((i + 1), vfn[i], header, temp_data)    # Create class object
+                    ud.print_day()                                              # Print days
+                    ud.print_headers()                                          # Print Headers
+                    incomplete, vid_choices = ud.get_incomplete_data_info()     # Get all incomplete videos by day
+                    day_update.append(vid_choices)                              # Append before class overwrite per day
+                    ud.print_incomplete_data(incomplete)                        # Print incomplete data list
 
-                    # Get video number
-                    day, vid = inp.get_update(day_update)    # Get update parameter (video number) - Location
-                    print("Update \n")
-                    print("Day {0} - video: {1}".format(day, vid))
+                # Get video number
+                day, vid = inp.get_update(day_update)    # Get update parameter (video number) - Location
+                print("Update \n")
+                print("Day {0} - video: {1}".format(day, vid))
+
+                # Get video update info
+                Aux.clear()
+                game = inp.set_game()
+                print("Game: " + game)
 
                 input("\n\nPress any key to continue.")
             elif(choice == 2):
