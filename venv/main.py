@@ -56,10 +56,11 @@ if __name__ == "__main__":
                 input("\n\nPress any key to continue.")
             elif(choice == 1):
                 incomplete = vfn
-                day_update = []
+                day_update = [] # Used to hold update info
                 game = ""
                 game_type = ""
                 game_map = ""
+                day_curr = []   # Used to hold current data
 
                 # Seperate killmas data and display
                 for i in range(len(killmas_data)):
@@ -76,13 +77,30 @@ if __name__ == "__main__":
 
                 # Get video number
                 day, vid = inp.get_update(day_update)    # Get update parameter (video number) - Location
-                print("Update \n")
-                print("Day {0} - video: {1}".format(day, vid))
 
                 # Get video update info
                 Aux.clear()
-                game = inp.set_game()
-                print("Game: " + game)
+                game = inp.set_game()                                           # Get Game
+                Aux.clear()
+                game_type = inp.set_Game_Type()                                 # Get Game Type
+                Aux.clear()
+                game_map = inp.set_map(game)                                    # Get Game Map
+                Aux.clear()
+                upd = DT.UPDATE_DISPLAY(day, vid, game, game_map, game_type)     # Display and Verify
+                cont = upd.disp_update()
+
+                # Update file
+                Aux.clear()
+                if(cont == "Yes"):
+                    day_s = ("Day " + str(day))                                 # Get day in proper format
+                    loca = inp.cross_check_map_loc(day_s, map_data)             # Cross-check day against day files
+                    day_curr = FM.get_data(loca)                                # Get current location for day
+                    day_update = inp.update_curr_data(day_curr, vid, game, game_type, game_map) # Get updated info
+                    FM.set_data(day_update, loca)                               # Update data at file location
+                elif(cont == "No"):
+                    print("No has been selected. No further changes are made.\n\n")
+                else:
+                    print("Something went wrong. Check the code!\n")
 
                 input("\n\nPress any key to continue.")
             elif(choice == 2):
