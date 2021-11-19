@@ -23,7 +23,8 @@ if __name__ == "__main__":
     while(again == "Yes"):
         # Get & Test user-input location
         Aux.clear()                     # Clear the screen from the start/loop at beginning of program
-        filename = inp.set_path()       # Get path from user
+        if(filename == ""):
+            filename = inp.set_path()       # Get path from user
         valid = FM.test_file(filename)  # Test user-entered path for validity
 
         # Program mapping based on given location
