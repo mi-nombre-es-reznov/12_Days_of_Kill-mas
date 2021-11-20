@@ -15,7 +15,7 @@ import Data_Template as DT
 # Code Path
 if __name__ == "__main__":
     valid = ""
-    filename = ""
+    filename = "G:\\Shared drives\\NCompEng Technologies\\0) Global Information\\Worker Resources\\Business created Software\\12 Days of Kill-mas\\venv\\Killmas_Days\\Killmas_data_mapping.csv"
     again = "Yes"
     map_data = []
     killmas_data = []
